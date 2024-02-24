@@ -13,14 +13,14 @@ for i in range(1, 10):
 
     if response.status_code == 200:
         soup = BeautifulSoup(response.text, "lxml")
-        all_products = soup.find('div', class_="products-layout__container products-layout--grid")
-        products = all_products.find_all('div', class_="product-card")
+        all_products = soup.find('div', class_="catalog-grid ng-star-inserted")
+        products = all_products.find_all('div', class_="goods-tile__content")
         discount = all_products.find_all('div', class_="goods-tile__price-currency currency")
 
         for j in range(len(products)):
             try:
-                title_ = products[j].find("a", class_="product-card__title").text
-                price = products[j].find("div", class_="v-pb__cur discount").text
+                title_ = products[j].find("a", class_="catalog-grid ng-star-inserted").text
+                price = products[j].find("div", class_="goods-tile__content").text
                 discount = products[j].find("div", class_="goods-tile__price-currency currency").text
                 with open("products.txt", "a", encoding="UTF-8") as file:
                     file.write(f"{title_}  {price}  {discount}\n")
